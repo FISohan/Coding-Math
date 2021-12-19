@@ -1,28 +1,43 @@
-
 const canvas = document.getElementById("canvas");
 const context = canvas.getContext("2d");
 
 var width = (canvas.width = window.innerWidth),
   height = (canvas.height = window.innerHeight);
 
-var centerX = width / 2,
-  centerY = height / 2,
-  angle = 0,
-  dx,dy;
+var toRed = (d) => (Math.PI / 180) * d;
 
-let v = new Vector(3,4);
-let v1 = new Vector(2,5);
+let p = [];
+var pNum = 500;
+window.addEventListener("mousedown", (e) => {
+  let x = [];
 
-let v1v = v.multiply(v1);
+  for (let i = 0; i < pNum; i++) {
+     x.push(new Particles(e.clientX,e.clientY / 2, 6,Math.random()*i
+      ))
+  }
+  p = [...x];
 
-console.log(v1v.getXY());
+});
 
-render();
+update();
 
-function render() {
-
+function update() {
   context.clearRect(0, 0, width, height);
-  
-  requestAnimationFrame(render);
-}
+  if (p.length != 0) {
+    for (let i = 0; i < p.length; i++) {
+      context.beginPath();
+      p[i].update();
+      context.arc(
+        p[i].position.x,
+        p[i].position.y,
+        10,
+        (Math.PI / 180) * 2,
+        0,
+        false
+      );
+      context.fill();
+    }
+  }
 
+  requestAnimationFrame(update);
+}

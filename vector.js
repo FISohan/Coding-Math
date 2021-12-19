@@ -29,7 +29,7 @@ class Vector {
   }
 
   setAngle(angle) {
-    let len = this.getAngle();
+    let len = this.getLength();
     this.x = Math.cos(angle) * len;
     this.y = Math.sin(angle) * len;
   }
@@ -39,6 +39,7 @@ class Vector {
     this.x = Math.cos(angle) * len;
     this.y = Math.sin(angle) * len;
   }
+
   getLength() {
     return Math.sqrt(this.x * this.x + this.y * this.y);
   }
@@ -61,5 +62,10 @@ class Vector {
   divide(value) {
     let o = new Vector(this.x / value, this.y / value);
     return o;
+  }
+
+  addTo(vec){
+    this.x += vec.x;
+    this.y += vec.y;
   }
 }
